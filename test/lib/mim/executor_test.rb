@@ -1,17 +1,25 @@
 require 'minitest/autorun'
+
 require_relative '../../../lib/mim/executor'
+require_relative '../../../lib/mim/exceptions/invalid_input_exception'
+require_relative '../../../lib/mim/exceptions/invalid_length_exception'
+require_relative '../../../lib/mim/exceptions/unknown_command_exception'
 
 Dir.glob('../../../lib/mim/exceptions/*.rb') { |f| require_relative f }
 
 class Mim::ExecutorTest < Minitest::Test
   def test_invalid_input
-    expected_output = "Encountered Error: Input must consist of ascii characters only\n"
-    assert_output(expected_output) { Mim::Executor.new("Hello World\u{666}").perform('$') }
+    #expected_output = "Encountered Error: Input must consist of ascii characters only\n"
+    assert_raises Mim::InvalidInputException do
+      Mim::Executor.new("Hello World\u{666}").perform('$')
+    end
   end
 
   def test_invalid_length
-    expected_output = "Encountered Error: Input length must be between 1 and 30 characters\n"
-    assert_output(expected_output) { Mim::Executor.new("Hello World Hello World Hello World").perform('$') }
+    #expected_output = "Encountered Error: Input length must be between 1 and 30 characters\n"
+    assert_raises Mim::InvalidLengthException do
+      Mim::Executor.new("Hello World Hello World Hello World").perform('$')
+    end
   end
 
   def test_unknown_command

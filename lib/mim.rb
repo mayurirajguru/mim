@@ -2,7 +2,11 @@ require 'byebug'
 require 'curses'
 
 module Mim
-  Dir.glob('mim/**/*.rb') { |f| require_relative f }
+  require_relative 'mim/executor.rb'
+  require_relative 'mim/printer.rb'
+  require_relative 'mim/exceptions/invalid_input_exception.rb'
+  require_relative 'mim/exceptions/invalid_length_exception.rb'
+  require_relative 'mim/exceptions/unknown_command_exception.rb'
 end
 
 begin

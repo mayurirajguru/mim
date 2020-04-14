@@ -25,7 +25,7 @@ module Mim
       else
         raise UnknownCommandException
       end
-    rescue StandardError => e
+    rescue UnknownCommandException => e
       puts "Encountered Error: #{e.message}"
     end
 
