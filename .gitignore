@@ -1,0 +1,6 @@
+# unwanted system files
+.DS_Store
+
+# unwanted gem related files
+.byebug_history
+.bundle
